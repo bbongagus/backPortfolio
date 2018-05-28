@@ -5,13 +5,16 @@ const sharp = require('sharp');
 const ImagesController = require('./../controllers/ImagesController');
 
 router.get('/', function(req, res, next){
-    ImagesController.getImagesList().then(res => {
+    ImagesController.getImagesList().then(imagesList => {
+        
+        console.log('​',imagesList );
         res.json({
-
+            ...imagesList
         })
-    });
-    next();
+    })
+    .catch(err => console.log(err));
     // console.log(ImagesController.getImagesList());
+    // res.end()
 })
 
 module.exports = router;
