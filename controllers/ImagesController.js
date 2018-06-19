@@ -21,15 +21,15 @@ const readDirectory      = (pathToDir) => readdirSync(pathToDir).filter(value =>
 const readImageDirectory = () => readDirectory(defaultPathToImages);
 const compareLists       = ([list1, list2]) => list1.filter(value => list2.indexOf(value) == -1);
 const getUnindexedImages = () => compareLists([readImageDirectory(), Object.keys(getJSONdata())]);
-const getPreviewPath = (fileName) => path.resolve(defaultPathToPreviews, fileName);
+const getPreviewPath = (fileName) => path.resolve(defaultPathToPreviews, `preview_${fileName}`);
 const getImagePath = (fileName) => path.resolve(defaultPathToImages, fileName);
-const generateGalleryItems = (unindexedImages, height = 1080) => {
+const generateGalleryItems = (unindexedImages, width = 1920) => {
     const generateOneGalleryItem = (imageName) => {
         return new Promise((resolve, reject) => {
             
             const generateRandomKey = () => '_' + Math.random().toString(36).substring(2, 9);
             sharp(getImagePath(imageName))
-                .resize(null, height / 3)
+                .resize(width / 3, null)
                 .toFile(getPreviewPath(imageName))
                 .then(result => {
                     const {width, height} = result; 

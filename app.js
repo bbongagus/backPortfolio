@@ -1,6 +1,7 @@
 const express = require('express');
 const path    = require('path');
 const morgan  = require('morgan');
+const bodyParser = require('body-parser');
 require('./global_functions');
 global.__rootdir = path.resolve(__dirname);
 console.log(global.__rootdir);
@@ -21,10 +22,21 @@ app.use(function (req, res, next) {
     next();
 });
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 const imageRouter = require('./routes/images');
 app.use('/images',express.static('src/images'));
+app.use('/previews', express.static('src/images/previews'))
 app.use('/images', imageRouter);
 
+app.post('/', (req, res) => {
+    console.log(req.body);
+    res.json({
+        code: '200'
+    })
+})
 app.listen(port, () => {
     console.log('Hello epta');
 } )
