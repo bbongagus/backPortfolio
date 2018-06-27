@@ -34,13 +34,13 @@ app.use('/images',express.static('src/images'));
 app.use('/previews', express.static('src/images/previews'))
 app.use('/images', imageRouter);
 
-app.post('/', (req, res) => {
-    console.log(req.body);
-    appendFileSync('./guys.json', JSON.stringify(req.body), null, 4)
-    res.json({
-        code: '200'
-    })
-})
+// app.post('/', (req, res) => {
+//     console.log(req.body);
+//     appendFileSync('./guys.json', JSON.stringify(req.body), null, 4)
+//     res.json({
+//         code: '200'
+//     })
+// })
 app.listen(port, () => {
     console.log('Hello epta');
 } )
