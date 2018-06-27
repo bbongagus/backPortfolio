@@ -1,7 +1,10 @@
 const express = require('express');
 const path    = require('path');
 const morgan  = require('morgan');
+const { promisify }                                      = require('util');
 const bodyParser = require('body-parser');
+const { readFileSync, readdirSync, readFile, writeFile, writeFileSync, appendFileSync } = require('fs');
+const promisifiedWriteFile                               = promisify(writeFile);
 require('./global_functions');
 global.__rootdir = path.resolve(__dirname);
 console.log(global.__rootdir);
@@ -33,6 +36,7 @@ app.use('/images', imageRouter);
 
 app.post('/', (req, res) => {
     console.log(req.body);
+    appendFileSync('./guys.json', JSON.stringify(req.body), null, 4)
     res.json({
         code: '200'
     })

@@ -17,7 +17,7 @@ const loadJSONdata = (pathToJson) => {
     return () => json;
 }
 const getJSONdata        = loadJSONdata(defaultPathToJson);
-const readDirectory      = (pathToDir) => readdirSync(pathToDir).filter(value => RegExp(/\.(jpg|png)$/).test(value));
+const readDirectory      = (pathToDir) => readdirSync(pathToDir).filter(value => RegExp(/\.(jpg|png|JPG)$/).test(value));
 const readImageDirectory = () => readDirectory(defaultPathToImages);
 const compareLists       = ([list1, list2]) => list1.filter(value => list2.indexOf(value) == -1);
 const getUnindexedImages = () => compareLists([readImageDirectory(), Object.keys(getJSONdata())]);
